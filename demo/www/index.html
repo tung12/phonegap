@@ -45,15 +45,64 @@
 <body>
     <div class="app">
         <h1>PhoneGap</h1>
-        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
-        </div>
+        <button  onclick="alertClick()" >Alert CLick</button>
+        <button onclick="confirmClick()" >Confirm CLick</button>
+        <button  onclick="promtClick()" >Promt CLick</button>
+        <button onclick="beepClick()" >Beep CLick</button>
+        <button onclick="vibrateClick()" >Vibrate CLick</button>
+        <button onclick="multiVibrateClick()" >Multi Vibrate CLick</button>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize();
+        function alertClick() {
+            navigator.notification.alert(
+                'You are the winner!',  // message
+                null,         // callback
+                'Game Over',            // title
+                'Done'                  // buttonName
+            );
+        }
+        function confirmClick() {
+            
+            navigator.notification.confirm(
+                'You are the winner!', // message
+                 onConfirm,            // callback to invoke with index of button pressed
+                'Game Over',           // title
+                ['Restart','Exit']     // buttonLabels
+            );
+    }
+        function onConfirm(buttonIndex) {
+    alert('You selected button ' + buttonIndex);
+}
+
+function promtClick() {
+    navigator.notification.prompt(
+        'Please enter your name',  // message
+        onPrompt,                  // callback to invoke
+        'Registration',            // title
+        ['Ok','Exit'],             // buttonLabels
+        'Jane Doe'                 // defaultText
+    );
+}
+function onPrompt(results) {
+    alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
+}
+
+function beepClick() {
+    navigator.notification.beep(2);
+}
+ 
+function vibrateClick() {
+    navigator.vibrate(2000);
+}
+function multiVibrateClick() {
+    navigator.vibrate([1000,2000,3000,2000]);
+}
+    
     </script>
 </body>
 
